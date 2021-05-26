@@ -1,7 +1,7 @@
 from keras.utils import to_categorical
 from keras.preprocessing.sequence import pad_sequences
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, confusion_matrix
 import numpy as np
 import predict
 import csv
@@ -51,8 +51,10 @@ def evaluate():
 
     report = classification_report(test_y, normalized_predictions)
     print(report)
+    tn, fp, fn, tp = confusion_matrix(test_y, normalized_predictions).ravel()
+    print("TN: {}, FP: {}, FN: {}, TP: {}".format(tn, fp, fn, tp))
 
-    file = open('Data/predictions.csv', 'w')
+    file = open('Data/predictions2.csv', 'w')
     with file:    
         write = csv.writer(file, delimiter=',')
         write.writerows([
