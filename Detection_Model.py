@@ -67,7 +67,7 @@ for dense_size in fully_connected_layers:
     x = Dropout(0.5)(x)
     
 #Initializing output layer
-predictions = Dense(4, activation='softmax')(x)
+predictions = Dense(2, activation='softmax')(x)
 
 #Classification ends
 
@@ -80,9 +80,12 @@ model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy']
 #Training the model
 history=model.fit(train_data, y_train,
           validation_data=(test_data, y_test),
-          batch_size=128,
-          epochs=10,
+          batch_size=32,
+          epochs=3,
           verbose=2)
+
+model.save_weights('model/clcnn-weights.h5')
+model.save('model/clcnn-model.h5')
 
 #NEURAL NETWORK CREATION ENDS
 

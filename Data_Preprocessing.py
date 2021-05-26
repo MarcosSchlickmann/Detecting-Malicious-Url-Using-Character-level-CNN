@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 #DATA PREPROCESSING SECTION BEGINS
 
 #Loading dataset
-load_data = pd.read_csv('Data/URL.txt', header=None,sep='\t')
+load_data = pd.read_csv('Data/shuf_csic.csv', header=None,sep='\t')
 
 ##Loading saved model
 #saved_model=load_model('model_final_version_2.h5')
