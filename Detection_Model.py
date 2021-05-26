@@ -11,16 +11,6 @@ from keras.layers import Conv1D, MaxPooling1D, Embedding
 vocab_size=len(tk.word_index)
 input_size = 1000
 embedding_size = 100
-embedding_weights = []  
-embedding_weights.append(np.zeros(vocab_size))  
-for char, i in tk.word_index.items(): 
-    onehot = np.zeros(vocab_size)
-    onehot[i - 1] = 1
-    embedding_weights.append(onehot)
-embedding_weights = np.array(embedding_weights)
-fully_connected_layers = [1024, 1024]
-
-#Character Embedding begins
 
 #Initializing input layer
 inputs = Input(shape=(input_size,), name='input', dtype='int64')
@@ -29,7 +19,6 @@ inputs = Input(shape=(input_size,), name='input', dtype='int64')
 embedding_layer = Embedding(vocab_size + 1,
                             embedding_size,
                             input_length=input_size)
-                            # weights=[embedding_weights])
 x = embedding_layer(inputs)
 
 #Character Embedding ends
@@ -60,14 +49,10 @@ for filter_num, filter_size, pooling_size in conv_layers:
 #and is passed onto dense layer
 x = Flatten()(x)  
 
-#initializing 2 hidden layers and a drop-out layer is 
-#added to each hidden layer to avoid over-fitting
-for dense_size in fully_connected_layers:
-    x = Dense(dense_size, activation='relu')(x)  
-    x = Dropout(0.5)(x)
+x = Dropout(0.5)(x)
     
 #Initializing output layer
-predictions = Dense(2, activation='softmax')(x)
+predictions = Dense(1, activation='sigmoid')(x)
 
 #Classification ends
 
@@ -81,8 +66,7 @@ model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy']
 history=model.fit(train_data, y_train,
           validation_data=(test_data, y_test),
           batch_size=32,
-          epochs=3,
-          verbose=2)
+          epochs=3)
 
 model.save_weights('model/clcnn-weights.h5')
 model.save('model/clcnn-model.h5')

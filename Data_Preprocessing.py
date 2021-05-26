@@ -32,15 +32,13 @@ x = x_normal  + x_anomalous
 no_yy = [0 for i in range(x_normal_len)]
 an_yy = [1 for i in range(x_anomalous_len)]
 y = no_yy + an_yy
-# print('y')
-# print(y[:10])
-y=to_categorical(y)
-# print('yc')
-# print(y[:10])
+
 ### x_train, x_test, y_train, y_test
 data_train, data_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=21)
 print('len x_train: {}, len y_train: {}'.format(len(data_test), len(y_test)))
 
+y_train = np.asarray(y_train)
+y_test = np.asarray(y_test)
 #Loading dataset
 ## load_data = pd.read_csv('Data/shuf_csic.csv', header=None,sep='\t')
 

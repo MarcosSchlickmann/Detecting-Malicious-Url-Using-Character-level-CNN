@@ -38,12 +38,8 @@ def evaluate():
     for prediction in predictions:
         
         default_predictions_normal.append(round(prediction[0], 4))
-        default_predictions_anom.append(round(prediction[1], 4))
 
         if prediction[0] > 0.80:
-            normalized_predictions.append(0)
-            continue
-        if prediction[1] > 0.80:
             normalized_predictions.append(1)
             continue
         
