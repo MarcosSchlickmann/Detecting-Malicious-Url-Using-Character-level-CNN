@@ -9,7 +9,7 @@ from keras.layers import Conv1D, MaxPooling1D, Embedding
 
 #Hot embedding of vocabulary set and other parameter initialization
 vocab_size=len(tk.word_index)
-input_size = 1014
+input_size = 1000
 embedding_size = 69
 embedding_weights = []  
 embedding_weights.append(np.zeros(vocab_size))  
