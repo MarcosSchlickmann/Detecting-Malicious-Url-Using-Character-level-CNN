@@ -2,10 +2,11 @@ import numpy as np
 import pandas as pd
 import io
 
-from keras.preprocessing.text import Tokenizer
+from keras.preprocessing.text import Tokenizer, tokenizer_from_json
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils import to_categorical
 from sklearn.model_selection import train_test_split
+import json
 
 #DATA PREPROCESSING SECTION BEGINS
 #loading the parsed files
@@ -67,12 +68,18 @@ tk = Tokenizer(char_level=True)
 #tk.fit_on_texts(data_train)
 
 #Creating a vocabulary set of 69 characters manually
-alphabet = "abcdefghijklmnopqrstuvwxyz0123456789,;.!?:'\"/\\|_@#$%^&*~`+-=<>()[]{}"
-char_dict = {}
-for i, char in enumerate(alphabet):
-    char_dict[char] = i + 1
-tk.word_index = char_dict.copy()
-tk.word_index[tk.oov_token] = max(char_dict.values()) + 1
+# alphabet = "abcdefghijklmnopqrstuvwxyz0123456789,;.!?:'\"/\\|_@#$%^&*~`+-=<>()[]{}"
+# char_dict = {}
+# for i, char in enumerate(alphabet):
+#     char_dict[char] = i + 1
+# tk.word_index = char_dict.copy()
+# tk.word_index[tk.oov_token] = max(char_dict.values()) + 1
+
+with open('Data/tokenized-chars.json') as json_file:
+    tokenizer_conf = json.load(json_file)
+
+tokenizer = tokenizer_from_json(tokenizer_conf)
+tk = tokenizer
 
 #Converting characters of each training and 
 #testing data observations to their corresponding values in vocabulary set

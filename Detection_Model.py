@@ -10,7 +10,7 @@ from keras.layers import Conv1D, MaxPooling1D, Embedding
 #Hot embedding of vocabulary set and other parameter initialization
 vocab_size=len(tk.word_index)
 input_size = 1000
-embedding_size = 69
+embedding_size = 100
 embedding_weights = []  
 embedding_weights.append(np.zeros(vocab_size))  
 for char, i in tk.word_index.items(): 
@@ -28,8 +28,8 @@ inputs = Input(shape=(input_size,), name='input', dtype='int64')
 #Initializing embedding layer and input layer is passed onto this layer
 embedding_layer = Embedding(vocab_size + 1,
                             embedding_size,
-                            input_length=input_size,
-                            weights=[embedding_weights])
+                            input_length=input_size)
+                            # weights=[embedding_weights])
 x = embedding_layer(inputs)
 
 #Character Embedding ends
