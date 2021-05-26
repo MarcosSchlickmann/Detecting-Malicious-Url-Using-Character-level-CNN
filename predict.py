@@ -1,11 +1,11 @@
 import keras
 from keras import models
 import io
-from keras.preprocessing.text import Tokenizer
+from keras.preprocessing.text import Tokenizer, tokenizer_from_json
 from keras.preprocessing.sequence import pad_sequences
 import numpy as np
 import random
-
+import json
 
 
 def load_data(file):
@@ -32,18 +32,27 @@ def prepare_tokenizer():
 	return tk
 
 
+def load_tokenizer():
+	with open('Data/tokenized-chars.json') as json_file:
+		tokenizer_conf = json.load(json_file)
+
+	tokenizer = tokenizer_from_json(tokenizer_conf)
+	return tokenizer
+
+
 def predict(requests):
 	model = models.load_model('model/clcnn-model.h5')
 	model.load_weights('model/clcnn-weights.h5')
 	model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
-	tk = prepare_tokenizer()
+	# tk = prepare_tokenizer()
+	tk = load_tokenizer()
 	seq = tk.texts_to_sequences(requests)
 
 	xx = pad_sequences(seq, maxlen=1000, padding='post')
 	xxf = np.array(xx)
 
-	prediction = model.predict(xxf)
+	prediction = model.predict(xxf, verbose=1)
 	return prediction
 	# print(len(xxf))
 	# print(xxf)
