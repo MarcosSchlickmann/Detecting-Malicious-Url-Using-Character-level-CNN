@@ -28,9 +28,6 @@ x = embedding_layer(inputs)
 #Initializing conv_filter_size, conv_window_size, pooling_window_size
 conv_layers = [[256, 7, 3],
                [256, 7, 3],
-               [256, 3, -1],
-               [256, 3, -1],
-               [256, 3, -1],
                [256, 3, 3]]
 
 #Initializing 6 convolution layers and 3 max-pooling layers and
