@@ -17,13 +17,13 @@ python -m venv venv
 source venv/bin/activate
 ```
 
-Installing the depencencies:
+Installing the dependencies:
 
 ```
 pip install -r requirements.txt
 ```
 
-## Creating and Training
+## Creating and Training the model
 
 ```
 python Detection_Model.py
